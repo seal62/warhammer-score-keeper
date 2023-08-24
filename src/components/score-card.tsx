@@ -1,5 +1,6 @@
-import { Stack, styled, Box, Button, Divider } from '@mui/material'
+import { Stack, styled, Box, Button, Divider, Fab } from '@mui/material'
 import { Players } from '../containers/score-keeper';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const WHITE = '#e9e9e9'
 
@@ -12,12 +13,15 @@ const Item = styled(Box)(({ theme }) => ({
   fontWeight: 'bold',
 }));
 
+type CardState = { minusActive: boolean };
 type ScoreCardProps = {
   id: Players;
   score: number;
   cp: number;
   updateScore(player: Players, score: number): void;
   updateCp(player: Players, cp: number): void;
+  updateCardState(player: Players, newCardState: CardState): void;
+  cardState: CardState;
 }
 
 const getPlayerColour = (id: Players) => {
@@ -38,10 +42,17 @@ const buttonStyle = {
   fontWeight: 'bold',
 }
 
-export const ScoreCard = ({ id, score, cp, updateScore, updateCp }: ScoreCardProps) => (
+const getMinusButtonStyle = (isActive: boolean): React.CSSProperties => ({
+  position: 'absolute',
+  opacity: isActive ? '100%' : '50%',
+  margin: '1rem'
+})
+
+export const ScoreCard = ({ id, score, cp, updateScore, updateCp, cardState, updateCardState }: ScoreCardProps) => (
   <Box sx={{ width: '50%', backgroundColor: getPlayerColour(id) }}>
-    <Stack sx={{ height: '100%' }}>
-      <Button sx={{ height: '70%' }} variant="text" onClick={() => updateScore(id, score + 1)}>
+    <Stack sx={{ height: '100%' }} style={{ position: 'relative'}}>
+      <Fab size='small' style={getMinusButtonStyle(cardState.minusActive)} onClick={() => updateCardState(id, { ...cardState, minusActive: !cardState.minusActive })}><RemoveIcon /></Fab>
+      <Button sx={{ height: '70%' }} variant="text" onClick={() => updateScore(id, cardState.minusActive ? score - 1 : score + 1)}>
         <Stack sx={{ height: '100%' }}>
           <Item>Score:</Item>
           <Item sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8rem' }}>{score}</Item>
