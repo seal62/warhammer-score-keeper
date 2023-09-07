@@ -60,9 +60,10 @@ const initialCardState: { [key: string]: CardState } = {
 type ScoreKeeperProps = {
   openSettings(): void;
   numberOfPlayers: number;
+  isMobile: boolean;
 }
 
-export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps) => {
+export const ScoreKeeper = ({ openSettings, numberOfPlayers, isMobile }: ScoreKeeperProps) => {
   const [score, setScore] = useState<Game>(initialScoreState);
   const [turn, setTurn] = useState(1);
   const [cardState, setCardState] = useState(initialCardState);
@@ -85,8 +86,9 @@ export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps)
       updateCp={handleUpdateCp}
       updateCardState={handleUpdateCardState}
       cardState={cardState.playerOne}
+      isMobile={isMobile}
     />,
-    [score.playerOne, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerOne]
+    [score.playerOne, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerOne, isMobile]
   );
 
   const PlayerTwoCard = useMemo(() =>
@@ -98,7 +100,8 @@ export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps)
       updateCp={handleUpdateCp}
       updateCardState={handleUpdateCardState}
       cardState={cardState.playerTwo}
-    />, [score.playerTwo, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerTwo]
+      isMobile={isMobile}
+    />, [score.playerTwo, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerTwo, isMobile]
   );
 
   const PlayerThreeCard = useMemo(() =>
@@ -110,7 +113,8 @@ export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps)
       updateCp={handleUpdateCp}
       updateCardState={handleUpdateCardState}
       cardState={cardState.playerThree}
-    />, [score.playerThree, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerThree]
+      isMobile={isMobile}
+    />, [score.playerThree, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerThree, isMobile]
   );
 
   const PlayerFourCard = useMemo(() =>
@@ -122,7 +126,8 @@ export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps)
       updateCp={handleUpdateCp}
       updateCardState={handleUpdateCardState}
       cardState={cardState.playerFour}
-    />, [score.playerFour, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerFour]
+      isMobile={isMobile}
+    />, [score.playerFour, handleUpdateScore, handleUpdateCp, handleUpdateCardState, cardState.playerFour, isMobile]
   );
 
   const CurrentTurnCard = useMemo(() => <TurnCard turn={turn} updateTurn={handleUpdateTurn} openSettings={openSettings} />, [turn, handleUpdateTurn, openSettings]);
@@ -141,5 +146,6 @@ export const ScoreKeeper = ({ openSettings, numberOfPlayers }: ScoreKeeperProps)
     PlayerFourCard={PlayerFourCard}
     TurnCard={CurrentTurnCard}
     numberOfPlayers={numberOfPlayers}
+    isMobile={isMobile}
   />;
 }

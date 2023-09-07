@@ -22,6 +22,7 @@ type ScoreCardProps = {
   updateCp(player: Players, cp: number): void;
   updateCardState(player: Players, newCardState: CardState): void;
   cardState: CardState;
+  isMobile: boolean;
 }
 
 const getPlayerColour = (id: Players) => {
@@ -52,8 +53,8 @@ const getMinusButtonStyle = (isActive: boolean): React.CSSProperties => ({
   margin: '1rem'
 })
 
-export const ScoreCard = ({ id, score, cp, updateScore, updateCp, cardState, updateCardState }: ScoreCardProps) => (
-  <Box sx={{ width: '50%', backgroundColor: getPlayerColour(id) }}>
+export const ScoreCard = ({ id, score, cp, updateScore, updateCp, cardState, updateCardState, isMobile }: ScoreCardProps) => (
+  <Box sx={{ width: isMobile ? '100%' : '50%', backgroundColor: getPlayerColour(id) }}>
     <Stack sx={{ height: '100%' }} style={{ position: 'relative'}}>
       <Fab size='small' style={getMinusButtonStyle(cardState.minusActive)} onClick={() => updateCardState(id, { ...cardState, minusActive: !cardState.minusActive })}><RemoveIcon /></Fab>
       <Button sx={{ height: '70%' }} variant="text" onClick={() => updateScore(id, cardState.minusActive ? score - 1 : score + 1)}>
