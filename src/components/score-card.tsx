@@ -27,9 +27,13 @@ type ScoreCardProps = {
 const getPlayerColour = (id: Players) => {
   switch(id) {
     case Players.playerOne:
-      return '#307812';
-    default:
       return '#3bc4ea';
+    case Players.playerTwo:
+      return '#307812';
+    case Players.playerThree:
+      return '#ff9800';
+    default:
+      return '#673ab7';
   }
 }
 
