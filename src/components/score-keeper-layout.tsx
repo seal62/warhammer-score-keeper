@@ -11,12 +11,12 @@ type ScoreKeeperLayoutProps = {
 }
 
 export const ScoreKeeperLayout = ({ PlayerOneCard, PlayerTwoCard, PlayerThreeCard, PlayerFourCard, TurnCard, numberOfPlayers, isMobile }: ScoreKeeperLayoutProps) => (
-  <Box sx={{ height: '100vh' }}>
-    <Stack sx={{ height: '10%', backgroundColor: '#212121', justifyContent: 'center' }}>
+  <Box sx={{ display: 'grid', gridTemplateRows: '1fr 8fr', width: '100%' }}>
+    <Stack sx={{ backgroundColor: '#212121', justifyContent: 'center' }}>
       {TurnCard}
     </Stack>
     {numberOfPlayers === 2 ? (
-      <Stack direction="row" sx={{ height: '90%' }}>
+      <Stack direction="row" sx={{  }}>
         {PlayerOneCard}
         {PlayerTwoCard}
       </Stack>
@@ -37,7 +37,7 @@ export const ScoreKeeperLayout = ({ PlayerOneCard, PlayerTwoCard, PlayerThreeCar
           </Grid>
         </Grid>
       ) : (
-        <Stack direction="row" sx={{ height: '90%' }}>
+        <Stack direction="row" sx={{  }}>
           {PlayerOneCard}
           {PlayerTwoCard}
           {PlayerThreeCard}
