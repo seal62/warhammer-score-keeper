@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/warhammer-score-keeper/static/css/main.5b44ed59.css",
-    "main.js": "/warhammer-score-keeper/static/js/main.e70615fa.js",
+    "main.js": "/warhammer-score-keeper/static/js/main.f03a5c25.js",
     "static/js/787.b17d713a.chunk.js": "/warhammer-score-keeper/static/js/787.b17d713a.chunk.js",
     "index.html": "/warhammer-score-keeper/index.html",
     "main.5b44ed59.css.map": "/warhammer-score-keeper/static/css/main.5b44ed59.css.map",
-    "main.e70615fa.js.map": "/warhammer-score-keeper/static/js/main.e70615fa.js.map",
+    "main.f03a5c25.js.map": "/warhammer-score-keeper/static/js/main.f03a5c25.js.map",
     "787.b17d713a.chunk.js.map": "/warhammer-score-keeper/static/js/787.b17d713a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5b44ed59.css",
-    "static/js/main.e70615fa.js"
+    "static/js/main.f03a5c25.js"
   ]
 }
