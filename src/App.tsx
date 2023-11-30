@@ -4,9 +4,10 @@ import './App.css';
 import { ScoreKeeper } from './containers/score-keeper';
 import { Settings } from './containers/settings';
 
-export type SettingsValues = { players: number };
-const settingsInitialValues = {
+export type SettingsValues = { players: number, splitSecondaries: boolean };
+const settingsInitialValues: SettingsValues = {
   players: 2,
+  splitSecondaries: false
 }
 
 const mobileCheck = function() {
@@ -37,13 +38,17 @@ function App() {
   }, []);
 
   const handleUpdateSettings = useCallback((key: string, value: any) => {
-    console.log(key, value)
     setSettings(state => ({ ...state, [key]: value }))
   }, []);
 
   return (
     <div className="App">
-      <ScoreKeeper numberOfPlayers={settings.players} openSettings={() => handleOpenSettings(true)} isMobile={isMobile} />
+      <ScoreKeeper
+        numberOfPlayers={settings.players}
+        openSettings={() => handleOpenSettings(true)}
+        isMobile={isMobile}
+        splitSecondaries={settings.splitSecondaries}
+      />
       <Settings settings={settings} updateSetting={handleUpdateSettings} isOpen={settingsIsOpen} closeSettings={() => handleOpenSettings(false)} isMobile={isMobile}  />
     </div>
   );

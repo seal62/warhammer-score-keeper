@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Radio, RadioGroup, Stack, Typography } from "@mui/material";
+import { Box, FormControlLabel, Radio, RadioGroup, Stack, Switch, Typography } from "@mui/material";
 import { CSSProperties } from "react";
 import { SettingsValues } from "../App";
 
@@ -25,6 +25,17 @@ export const SettingsLayout = ({ settings, updateSetting, isMobile }: SettingsLa
           <FormControlLabel value={2} control={<Radio />} label="2" />
           <FormControlLabel value={4} control={<Radio />} label="4" />
         </RadioGroup>
+      </Stack>
+    </Box>
+    <Box>
+      <Typography style={{ fontWeight: 'bold' }}>Secondary Scoring:</Typography>
+      <Stack>
+        <Switch
+          checked={settings.splitSecondaries}
+          onChange={(ev) => updateSetting('splitSecondaries', ev.target.checked)}
+          inputProps={{ 'aria-label': 'controlled' }}
+          value={settings.splitSecondaries}
+        />
       </Stack>
     </Box>
   </Box>

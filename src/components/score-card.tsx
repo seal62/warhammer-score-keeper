@@ -17,12 +17,14 @@ type CardState = { minusActive: boolean };
 type ScoreCardProps = {
   id: Players;
   score: number;
+  secondaryScore: number;
   cp: number;
-  updateScore(player: Players, score: number): void;
+  updateScore(player: Players, score: number, isSecondary?: boolean): void;
   updateCp(player: Players, cp: number): void;
   updateCardState(player: Players, newCardState: CardState): void;
   cardState: CardState;
   isMobile: boolean;
+  splitSecondaries: boolean;
 }
 
 const getPlayerColour = (id: Players) => {
@@ -53,16 +55,39 @@ const getMinusButtonStyle = (isActive: boolean): React.CSSProperties => ({
   margin: '1rem'
 })
 
-export const ScoreCard = ({ id, score, cp, updateScore, updateCp, cardState, updateCardState, isMobile }: ScoreCardProps) => (
+export const ScoreCard = ({
+  id,
+  score,
+  secondaryScore,
+  cp,
+  updateScore,
+  updateCp,
+  cardState,
+  updateCardState,
+  isMobile,
+  splitSecondaries,
+}: ScoreCardProps) => (
   <Box sx={{ width: isMobile ? '100%' : '50%', backgroundColor: getPlayerColour(id) }}>
     <Stack sx={{ height: '100%' }} style={{ position: 'relative'}}>
       <Fab size='small' style={getMinusButtonStyle(cardState.minusActive)} onClick={() => updateCardState(id, { ...cardState, minusActive: !cardState.minusActive })}><RemoveIcon /></Fab>
       <Button sx={{ height: '70%' }} variant="text" onClick={() => updateScore(id, cardState.minusActive ? score - 1 : score + 1)}>
         <Stack sx={{ height: '100%' }}>
-          <Item>Score:</Item>
-          <Item sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8rem' }}>{score}</Item>
+          <Item>{splitSecondaries ? 'Primary Score' : 'Score'}:</Item>
+          <Item sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8rem' }}>
+            {score}
+          </Item>
         </Stack>
       </Button>
+      {splitSecondaries && (
+        <Button sx={{ height: '70%' }} variant="text" onClick={() => updateScore(id, cardState.minusActive ? secondaryScore - 1 : secondaryScore + 1, true)}>
+          <Stack sx={{ height: '100%' }}>
+            <Item>Secondaries Score:</Item>
+            <Item sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8rem' }}>
+              {secondaryScore}
+            </Item>
+          </Stack>
+        </Button>
+      )}
       <Box sx={{ height: '30%', paddingBottom: '1px' }}>
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.3)' }} />
         <Stack sx={{ height: '100%' }}>
